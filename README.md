@@ -1,4 +1,4 @@
-# @coneje.rock/nuxt-unleash
+# nuxt-unleash
 
 > Nuxt.js module to use Unleash toggle feature services
 
@@ -11,22 +11,22 @@ or `context.app.unleash` to access _Unleash_ feature flags from server side.
 
 ## Setup
 
-1. Add `@coneje.rock/nuxt-unleash` dependency to your project
+1. Add `nuxt-unleash` dependency to your project
 
 ```bash
-yarn add --dev @coneje.rock/nuxt-unleash
+yarn add nuxt-unleash
 ```
 
-2. Add `@coneje.rock/nuxt-unleash` to the `modules` section of `nuxt.config.js`
+2. Add `nuxt-unleash` to the `modules` section of `nuxt.config.js`
 
 ```js
 export default {
   modules: [
     // Simple usage
-    '@coneje.rock/nuxt-unleash',
+    'nuxt-unleash',
 
     // With options
-    ['@coneje.rock/nuxt-unleash', { /* module options */ }]
+    ['nuxt-unleash', { /* module options */ }]
   ]
 }
 ```
@@ -38,7 +38,7 @@ export default {
 ```js
 export default {
   buildModules: [
-    '@coneje.rock/nuxt-unleash'
+    'nuxt-unleash'
   ],
   unleash: {
     /* module options */

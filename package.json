@@ -1,6 +1,6 @@
 {
   "name": "nuxt-unleash",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Nuxt.js module to use Unleash toggle feature services",
   "keywords": [
     "nuxt",
