@@ -1,5 +1,8 @@
 # nuxt-unleash
 
+[![npm (scoped with tag)](https://img.shields.io/npm/v/nuxt-unleash/latest.svg?style=flat-square)](https://npmjs.com/package/nuxt-unleash)
+[![npm](https://img.shields.io/npm/dt/nuxt-unleash.svg?style=flat-square)](https://npmjs.com/package/nuxt-unleash)
+
 > Nuxt.js module to use Unleash toggle feature services
 
 [📖 **Release Notes**](./CHANGELOG.md)
