@@ -1,6 +1,6 @@
 {
   "name": "nuxt-unleash",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Nuxt.js module to use Unleash toggle feature services",
   "keywords": [
     "nuxt",
@@ -19,7 +19,7 @@
     "type": "git",
     "url": "https://github.com/conejerock/nuxt-unleash.git"
   },
-  "license": "ISC",
+  "license": "MIT",
   "author": "Juanjo Conejero <juanjoconejero@gmail.com>",
   "main": "./dist/module.js",
   "types": "./dist/index.d.ts",

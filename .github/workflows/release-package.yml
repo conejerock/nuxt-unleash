@@ -1,4 +1,4 @@
-name: NuxtJS Package
+name: "pkg: npm & gpr"
 
 on:
   release:
@@ -27,6 +27,7 @@ jobs:
         with:
           node-version: 12
           registry-url: https://npm.pkg.github.com/
+          scope: '@conejerock'
 
 
       - name: Install dependencies for GitHub Package Registry
