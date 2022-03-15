@@ -1,7 +1,11 @@
 # nuxt-unleash
 
-[![npm (scoped with tag)](https://img.shields.io/npm/v/nuxt-unleash/latest.svg?style=flat-square)](https://npmjs.com/package/nuxt-unleash)
-[![npm](https://img.shields.io/npm/dt/nuxt-unleash.svg?style=flat-square)](https://npmjs.com/package/nuxt-unleash)
+
+[![npm version][npm-version-src]][npm-version-href]
+[![npm downloads][npm-downloads-src]][npm-downloads-href]
+[![Github Actions CI][github-actions-ci-src]][github-actions-ci-href]
+[![Codecov][codecov-src]][codecov-href]
+[![License][license-src]][license-href]
 
 > Nuxt.js module to use Unleash toggle feature services
 
@@ -142,3 +146,22 @@ asyncData(ctx) {
 ## License
 
 [MIT License](./LICENSE)
+
+
+Copyright (c) Conejerock
+
+<!-- Badges -->
+[npm-version-src]: https://img.shields.io/npm/v/nuxt-unleash/latest.svg
+[npm-version-href]: https://npmjs.com/package/nuxt-unleash
+
+[npm-downloads-src]: https://img.shields.io/npm/dt/nuxt-unleash.svg
+[npm-downloads-href]: https://npmjs.com/package/nuxt-unleash
+
+[github-actions-ci-src]: https://github.com/conejerock/nuxt-unleash/workflows/ci/badge.svg
+[github-actions-ci-href]: https://github.com/conejerock/nuxt-unleash/actions?query=workflow%3Aci
+
+[codecov-src]: https://img.shields.io/codecov/c/github/conejerock/nuxt-unleash.svg
+[codecov-href]: https://codecov.io/gh/conejerock/nuxt-unleash
+
+[license-src]: https://img.shields.io/npm/l/nuxt-unleash.svg
+[license-href]: https://npmjs.com/package/nuxt-unleash
