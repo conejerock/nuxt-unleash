@@ -53,18 +53,6 @@ export default {
 }
 ```
 
-If you are using SPA mode, add an index `/` route to `generate` section of `nuxt.config.js`:
-
-```js
-export default {
-  generate: {
-    unleash: [
-      '/'
-    ]
-  }
-}
-```
-
 ## Options
 
 ### `url`
