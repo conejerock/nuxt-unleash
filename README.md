@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://github.com/conejerock/nuxt-unleash/">
-    <img src="docs/icon.svg" width="300">
+    <img src="docs/icon.svg" width="200">
   </a>
 </p>
 <br>
