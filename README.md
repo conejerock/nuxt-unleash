@@ -1,4 +1,12 @@
+<p align="center">
+  <a href="https://github.com/conejerock/nuxt-unleash/">
+    <img src="docs/icon.svg" width="300">
+  </a>
+</p>
+<br>
+
 # nuxt-unleash
+
 
 
 [![npm version][npm-version-src]][npm-version-href]
