@@ -3,10 +3,8 @@
     <img src="docs/icon.svg" width="200">
   </a>
 </p>
-<br>
 
 # nuxt-unleash
-
 
 
 [![npm version][npm-version-src]][npm-version-href]
