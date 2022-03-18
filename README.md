@@ -1,13 +1,8 @@
 <p align="center">
-  <a href="https://github.com/conejerock/nuxt-unleash/">
-    <img src="docs/icon.svg" width="300">
-  </a>
+    <img src="https://raw.githubusercontent.com/conejerock/nuxt-unleash/main/docs/icon.svg" width="300">
 </p>
-<br>
 
 # nuxt-unleash
-
-
 
 [![npm version][npm-version-src]][npm-version-href]
 [![npm downloads][npm-downloads-src]][npm-downloads-href]
