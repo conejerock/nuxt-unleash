@@ -14,7 +14,7 @@ const extractIP = ({ ssrContext, store }, headerIp) => {
     return undefined;
   }
 
-  if (process.server) {
+  if (process.server && ssrContext?.req?.socket?.remoteAddress) {
     let ip = ssrContext.req.socket.remoteAddress;
     if (headerIp) {
       ip = ssrContext.req.headers[headerIp] || "";
