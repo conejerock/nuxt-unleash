@@ -10,7 +10,7 @@
 [![Codecov][codecov-src]][codecov-href]
 [![License][license-src]][license-href]
 
-> Nuxt.js module to use Unleash toggle feature services
+> Nuxt.js module to use [Unleash](https://github.com/Unleash/unleash) toggle feature services
 
 [📖 **Release Notes**](./CHANGELOG.md)
 
