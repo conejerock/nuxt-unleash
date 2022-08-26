@@ -128,6 +128,39 @@ asyncData(ctx) {
 }
 ```
 
+### Methods
+
+The library provides four methods:
+
+#### exists
+Returns whether a feature flag exists 
+
+```js
+  this.$unleash.exists('new-feature')
+```
+
+#### isEnabled
+If the feature flag exists, return its status value. Otherwise, return the value of module option `enabledDefault`.
+
+```js
+  this.$unleash.isEnabled('new-feature')
+```
+
+#### isAllowUser
+If feature flag has the strategy `userWithId` as user list (comma separated), returns whether *myUsername* is in the user list of `userIds`.
+
+```js
+  this.$unleash.isAllowUser('new-feature', 'myUsername')
+```
+
+#### isAllowIP
+If feature flag has the strategy `userWithId` as IP list (comma separated), returns whether the current request IP is in the IP list of `userIds`.
+
+```js
+  this.$unleash.isAllowIP('new-feature')
+```
+*Pd: It's necessary to activate **vuex** for this functionality*
+
 ## Development
 
 1. Clone this repository
