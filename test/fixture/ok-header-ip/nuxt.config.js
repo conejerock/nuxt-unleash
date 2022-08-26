@@ -2,7 +2,7 @@ const path = require('path')
 
 export default {
   rootDir: __dirname,
-  buildModules: ['../../../src/index.ts'],
+  buildModules: ['../../../src/module],
   unleash: {
     url: 'http://some-url.com',
     instanceId: 'SOME-KEY-PRODICTION',

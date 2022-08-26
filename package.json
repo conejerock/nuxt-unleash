@@ -1,6 +1,6 @@
 {
   "name": "nuxt-unleash",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Nuxt.js module to use Unleash toggle feature services",
   "keywords": [
     "nuxt",
@@ -21,44 +21,40 @@
   },
   "license": "MIT",
   "author": "Juanjo Conejero <juanjoconejero@gmail.com>",
-  "main": "./dist/module.js",
-  "types": "./dist/index.d.ts",
-  "typings": "./index.d.ts",
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": "./dist/module.mjs",
+      "require": "./dist/module.cjs"
+    }
+  },
+  "main": "./dist/module.cjs",
+  "types": "./dist/types.d.ts",
   "files": [
-    "dist",
-    "templates",
-    "index.d.ts"
+    "dist"
   ],
   "scripts": {
-    "build": "siroc build && yarn build:types",
-    "build:types": "scripts/types.sh",
-    "dev": "nuxt dev test/fixture/ok",
+    "prepack": "nuxt-module-build",
+    "dev": "nuxi dev playground",
+    "dev:build": "nuxi build playground",
+    "dev:prepare": "nuxt-module-build --stub && nuxi prepare playground",
     "lint": "eslint --ext .js,.ts,.vue ./src",
-    "prepublishOnly": "yarn build",
     "release": "yarn test && yarn build && standard-version && git push --follow-tags && npm publish",
     "test": "yarn jest"
   },
   "dependencies": {
-    "axios": "^0.26.0",
-    "colorette": "^2.0.16",
+    "@nuxt/kit": "^3.0.0-rc.8",
+    "axios": "^0.27.2",
     "consola": "^2.15.3"
   },
   "devDependencies": {
-    "@babel/preset-typescript": "latest",
-    "@microsoft/api-extractor": "^7.19.4",
-    "@nuxt/test-utils": "latest",
-    "@nuxt/types": "^2.15.8",
+    "@nuxt/module-builder": "latest",
+    "@nuxt/test-utils": "^3.0.0-rc.8",
     "@nuxtjs/eslint-config-typescript": "latest",
-    "@sucrase/jest-plugin": "^2.2.0",
-    "@types/chalk": "^2.2.0",
-    "@types/jest": "latest",
-    "@types/node": "latest",
-    "del": "latest",
     "eslint": "latest",
-    "jest": "latest",
-    "nuxt": "latest",
-    "playwright": "^1.19.2",
-    "siroc": "latest",
-    "standard-version": "latest"
+    "jest": "^29.0.1",
+    "nuxt": "^3.0.0-rc.8",
+    "prettier": "^2.7.1",
+    "vitest": "^0.22.1"
   }
 }

@@ -1,13 +1,11 @@
+import { defineNuxtPlugin } from "#app";
+
 export interface ModuleOptionsConfig {
   enabledDefault?: boolean;
   headerIP?: string;
 }
-
-export interface ModuleOptions {
-  url: string;
-  environment: string;
-  instanceId: string;
-  config: ModuleOptionsConfig;
+export interface NuxtFeatureOptionsContext {
+  ip?: string;
 }
 
 export interface UnleashFlagStrategy {
@@ -22,13 +20,13 @@ export interface UnleashFlagsData {
   strategies: UnleashFlagStrategy[];
 }
 
-export interface NuxtFeatureOptionsContext {
-  ip?: string;
-}
-
 export class UnleashFlags {
   // eslint-disable-next-line no-useless-constructor
-  private constructor (private features: UnleashFlagsData[], private config: ModuleOptionsConfig, private context: NuxtFeatureOptionsContext) {}
+  private constructor (
+    private features: UnleashFlagsData[],
+    private config: ModuleOptionsConfig,
+    private context: NuxtFeatureOptionsContext
+  ) {}
 
   public static create ({
     features,
@@ -46,26 +44,21 @@ export class UnleashFlags {
     if (!this.exists(name)) {
       return this.config.enabledDefault
     }
-    return this.features.some(f => f.name === name && f.enabled)
+    return this.features.some((f: UnleashFlagsData) => f.name === name && f.enabled)
   }
 
   exists (name: string) {
-    return this.features.some(f => f.name === name)
+    return this.features.some((f: UnleashFlagsData) => f.name === name)
   }
 
   isAllowIP (name: string): boolean {
-    const {
-      feature,
-      strategies
-    } = this.getFeature(name)
+    const { feature, strategies } = this.getFeature(name)
     if (!feature || !feature?.enabled || !strategies) {
       return false
     }
 
     for (const strategy of strategies) {
-      const ips = strategy.parameters.userIds
-        .split(',')
-        .map(s => s.trim())
+      const ips = strategy.parameters.userIds.split(',').map((s: string) => s.trim())
       if (
         this.context.ip !== undefined &&
         this.context.ip.length > 0 &&
@@ -78,18 +71,13 @@ export class UnleashFlags {
   }
 
   isAllowUser (name: string, user: string) {
-    const {
-      feature,
-      strategies
-    } = this.getFeature(name)
+    const { feature, strategies } = this.getFeature(name)
     if (!feature || !feature?.enabled || !strategies) {
       return false
     }
 
     for (const strategy of strategies) {
-      const users = strategy.parameters.userIds
-        .split(',')
-        .map(s => s.trim())
+      const users = strategy.parameters.userIds.split(',').map((s: string) => s.trim())
       if (user.length > 0 && users.includes(user)) {
         return true
       }
@@ -97,16 +85,11 @@ export class UnleashFlags {
     return false
   }
 
-  private getFeature (
-    name: string,
-    strategyName: string = 'userWithId'
-  ): {
+  private getFeature (name: string, strategyName: string = 'userWithId'): {
     feature?: UnleashFlagsData;
     strategies?: UnleashFlagStrategy[];
   } {
-    const feature = this.features.find(
-      f => f.name === name
-    )
+    const feature = this.features.find((f: UnleashFlagsData) => f.name === name)
     if (!feature) {
       return {
         feature: undefined,
@@ -114,7 +97,7 @@ export class UnleashFlags {
       }
     }
     const strategies = feature.strategies.filter(
-      f => f.name === strategyName
+      (f:UnleashFlagStrategy) => f.name === strategyName
     )
     if (!strategies) {
       return {
@@ -128,3 +111,18 @@ export class UnleashFlags {
     }
   }
 }
+
+export default defineNuxtPlugin((nuxtApp) => {
+  const FEATURES = JSON.parse('<%= options.data %>')
+  const CONFIG = JSON.parse('<%= options.config %>')
+
+  const unleashFlags = UnleashFlags.create({
+    features: FEATURES,
+    config: CONFIG
+  })
+  return {
+    provide: {
+      unleash: unleashFlags
+    }
+  }
+})

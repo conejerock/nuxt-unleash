@@ -1,0 +1,8 @@
+{
+  "private": true,
+  "name": "my-module-playground",
+  "scripts": {
+    "prepack": "nuxt-module-build",
+    "dev": "nuxi dev playground"
+  }
+}
