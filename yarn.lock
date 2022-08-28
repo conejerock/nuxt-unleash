@@ -1015,7 +1015,7 @@
     rc9 "^1.2.2"
     std-env "^3.1.1"
 
-"@nuxt/test-utils@^3.0.0-rc.8":
+"@nuxt/test-utils@latest":
   version "3.0.0-rc.8"
   resolved "https://registry.npmjs.org/@nuxt/test-utils/-/test-utils-3.0.0-rc.8.tgz#49b9a09c16575dfd9ad7fac5c9d1c937480948a2"
   integrity sha512-YdTkMVensrWpMoDnUX4oNRZbaMarNTxDNYjRvZOe1QFtEc8zjqrBhkUfwzA9n9bTzN0xiDxrSLnVNndEY5mfOg==

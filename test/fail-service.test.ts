@@ -1,19 +1,26 @@
-import { setupTest, mockConsola } from '@nuxt/test-utils'
+import { describe, expect, vi, test } from 'vitest'
+import { fileURLToPath } from 'node:url'
+import { setup } from '@nuxt/test-utils'
+import axios from 'axios'
+import consola from 'consola'
 
-describe('fail-service', () => {
-  setupTest({
+const spyLogger = () => {
+  const logger = consola.withTag('nuxt:unleash')
+  vi.spyOn(consola, 'withTag').mockImplementation(() => logger)
+  return vi.spyOn(logger, 'error').mockImplementation(vi.fn() as any)
+}
+
+describe('fail-service', async () => {
+  vi.spyOn(axios, 'get').mockImplementation(() => Promise.reject(Error('Cant connect')))
+
+  const loggerErrorSpy = spyLogger()
+
+  await setup({
     server: true,
-    fixture: 'fixture/ok'
+    rootDir: fileURLToPath(new URL('./fixture/ok', import.meta.url))
   })
 
-  jest.mock('axios', () => ({
-    create: jest.fn().mockImplementation(() => Promise.resolve()),
-    get: jest.fn().mockImplementation(() => Promise.reject(Error('Cant connect')))
-  }))
-
-  const logger = mockConsola()
-
   test('should warn if fail unleash service', () => {
-    expect(logger.error).toHaveBeenCalledWith('Cannot fetch data from url http://some-url.com')
+    expect(loggerErrorSpy).toBeCalledWith('Cannot fetch data from url http://some-url.com')
   })
 })
