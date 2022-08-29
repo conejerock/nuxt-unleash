@@ -11,3 +11,4 @@ sw.*
 .env
 .npmrc
 temp
+/*/.output
