@@ -2,7 +2,7 @@ import { resolve } from 'path'
 import axios from 'axios'
 import consola, { Consola } from 'consola'
 import { defineNuxtModule, createResolver, addPluginTemplate } from '@nuxt/kit'
-import {UnleashFlags} from "./runtime/plugin";
+import { UnleashFlags } from './runtime/plugin'
 
 export interface ModuleOptionsConfig {
   enabledDefault?: boolean;
@@ -37,7 +37,7 @@ const fetchData = async (
     return data.features
   } catch (e) {
     logger.error(`Cannot fetch data from url ${url}`)
-    return undefined;
+    return undefined
   }
 }
 
@@ -57,8 +57,6 @@ export default defineNuxtModule<ModuleOptions>({
     config: {}
   },
   async setup (options, nuxt) {
-
-
     if (!options.url) {
       logger.warn('url option is not set')
     }
@@ -69,19 +67,17 @@ export default defineNuxtModule<ModuleOptions>({
     const { url, environment, instanceId, config } = options
     const featureFlags = await fetchData(url, instanceId, environment)
 
-
     const resolver = createResolver(import.meta.url)
     const runtimeDir = resolver.resolve('./runtime')
     const srcPlugin = resolve(runtimeDir, 'plugin.ts')
     nuxt.options.build.transpile.push(runtimeDir)
-
 
     addPluginTemplate({
       options: {
         data: JSON.stringify(featureFlags),
         config: JSON.stringify(config || {})
       },
-      src: srcPlugin,
-    });
+      src: srcPlugin
+    })
   }
 })

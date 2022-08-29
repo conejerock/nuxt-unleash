@@ -9,7 +9,7 @@ export default defineNuxtConfig({
     instanceId: 'SOME-KEY-PRODICTION',
     environment: 'production',
     config: {
-      headerIp: 'CF-Connecting-IP'
+      headerIP: 'CF-Connecting-IP'
     }
   }
 });
