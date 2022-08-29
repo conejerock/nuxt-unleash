@@ -1,8 +1,9 @@
 const path = require('path')
+import { defineNuxtConfig } from 'nuxt'
 
-export default {
+export default defineNuxtConfig({
   rootDir: __dirname,
-  buildModules: ['../../../src/module],
+  buildModules: ['../../../src/module'],
   unleash: {
     url: 'http://some-url.com',
     instanceId: 'SOME-KEY-PRODICTION',
@@ -10,6 +11,5 @@ export default {
     config: {
       headerIp: 'CF-Connecting-IP'
     }
-  },
-  serverMiddleware: [path.resolve(__dirname, './server-middleware/add-header')]
-}
+  }
+});

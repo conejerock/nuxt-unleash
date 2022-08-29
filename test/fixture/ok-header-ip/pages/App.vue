@@ -1,15 +1,9 @@
 <template>
-  <h1>{{ value }}</h1>
+  <h1>{{ $unleash.isAllowIP("new-feature-by-ip-variant'")
+    ? "New Feature Exists"
+    : "New Feature Doesnt Exist" }}</h1>
 </template>
 
-<script>
-export default {
-  asyncData (ctx) {
-    return {
-      value: ctx.app.unleash.isAllowIP('new-feature-by-ip-variant')
-        ? 'New Feature Exists'
-        : 'New Feature Doesnt Exist'
-    }
-  }
-}
+<script setup lang="ts">
+const { $unleash } = useNuxtApp()
 </script>

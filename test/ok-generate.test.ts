@@ -1,23 +1,19 @@
-import { setupTest, get } from '@nuxt/test-utils'
+import { describe, expect, vi, test } from 'vitest'
+import { fileURLToPath } from 'node:url'
+import { setup, $fetch } from '@nuxt/test-utils'
+import axios from 'axios'
+import singleIPFeature from './fixture/response/single-allow-by-ip-feature'
 
-describe('ok', () => {
-  jest.mock('axios', () => ({
-    get: jest.fn(() => {
-      const singleFeature = require('./fixture/response/single-allow-by-ip-feature')
-      return Promise.resolve(singleFeature.default)
-    }),
-    create: jest.fn(() => {
-      return this
-    })
-  }))
-  setupTest({
-    server: true,
-    generate: true,
-    fixture: 'fixture/ok-generate'
+describe('ok-generate', async () => {
+  vi.spyOn(axios, 'get').mockImplementation(() => Promise.resolve(singleIPFeature))
+
+  await setup({
+    server: false,
+    rootDir: fileURLToPath(new URL('./fixture/ok-generate', import.meta.url))
   })
 
   test('should pass module with template instance', async () => {
-    const { body } = await get('/App')
-    expect(body).toContain('New Feature Doesnt Exist')
+    const html = await $fetch('/App')
+    expect(html).contain('New Feature Doesnt Exist')
   })
 })

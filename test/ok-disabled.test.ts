@@ -1,23 +1,19 @@
-import { setupTest, get } from '@nuxt/test-utils'
+import { describe, expect, vi, test } from 'vitest'
+import { fileURLToPath } from 'node:url'
+import { setup, $fetch } from '@nuxt/test-utils'
+import axios from 'axios'
+import singleFeature from './fixture/response/single-feature'
 
-jest.mock('axios', () => ({
-  get: jest.fn(() => {
-    const singleFeature = require('./fixture/response/single-feature-disabled')
-    return Promise.resolve(singleFeature.default)
-  }),
-  create: jest.fn(() => {
-    return this
-  })
-}))
+describe('ok disabled', async () => {
+  vi.spyOn(axios, 'get').mockImplementation(() => Promise.resolve(singleFeature))
 
-describe('ok-disabled', () => {
-  setupTest({
+  await setup({
     server: true,
-    fixture: 'fixture/ok-disabled'
+    rootDir: fileURLToPath(new URL('./fixture/ok-disabled', import.meta.url))
   })
 
-  test('should pass if feature exists and is disabled', async () => {
-    const { body } = await get('/App')
-    expect(body).toContain('New Feature Exists and Disabled')
+  test('should pass module with template instance', async () => {
+    const html = await $fetch('/App')
+    expect(html).contain('New Feature Exists and Disabled')
   })
 })
