@@ -2,7 +2,7 @@ import { resolve } from 'path'
 import axios from 'axios'
 import consola, { Consola } from 'consola'
 import { defineNuxtModule, createResolver, addPluginTemplate } from '@nuxt/kit'
-import { UnleashFlags } from './runtime/plugin'
+import { NuxtApp } from "nuxt/app";
 
 export interface ModuleOptionsConfig {
   enabledDefault?: boolean;
@@ -56,7 +56,7 @@ export default defineNuxtModule<ModuleOptions>({
     instanceId: '',
     config: {}
   },
-  async setup (options, nuxt) {
+  setup: async (options: any, nuxt: NuxtApp): Promise<void> => {
     if (!options.url) {
       logger.warn('url option is not set')
     }

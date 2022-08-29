@@ -1,23 +1,19 @@
-import { setupTest, get } from '@nuxt/test-utils'
+import { describe, expect, vi, test } from 'vitest'
+import { fileURLToPath } from 'node:url'
+import { setup, $fetch, createTestContext } from '@nuxt/test-utils'
+import axios from 'axios'
+import singleIPFeature from './fixture/response/single-allow-by-ip-feature'
 
-jest.mock('axios', () => ({
-  get: jest.fn(() => {
-    const singleFeature = require('./fixture/response/single-allow-by-ip-feature')
-    return Promise.resolve(singleFeature.default)
-  }),
-  create: jest.fn(() => {
-    return this
-  })
-}))
+describe('ok-request-ip', async () => {
+  vi.spyOn(axios, 'get').mockImplementation(() => Promise.resolve(singleIPFeature))
 
-describe('ok-request-ip', () => {
-  setupTest({
+  await setup({
     server: true,
-    fixture: 'fixture/ok-request-ip'
+    rootDir: fileURLToPath(new URL('./fixture/ok-request-ip', import.meta.url))
   })
 
   test('should pass if current request is allow by ip', async () => {
-    const { body } = await get('/App')
-    expect(body).toContain('New Feature Exist')
+    const html = await $fetch('/App')
+    expect(html).contain('New Feature Exist')
   })
 })

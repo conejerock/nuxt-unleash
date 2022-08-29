@@ -1,15 +1,26 @@
-import { setupTest, mockConsola } from '@nuxt/test-utils'
+import { describe, expect, vi, test } from 'vitest'
+import { fileURLToPath } from 'node:url'
+import { setup } from '@nuxt/test-utils'
+import axios from 'axios'
+import consola from 'consola'
 
-const logger = mockConsola()
+const spyLogger = (methodName: 'error' | 'warn' = 'error') => {
+  const logger = consola.withTag('nuxt:unleash')
+  vi.spyOn(consola, 'withTag').mockImplementation(() => logger)
+  return vi.spyOn(logger, methodName).mockImplementation(vi.fn() as any)
+}
 
-describe('options-without-instance-id', () => {
-  setupTest({
-    build: true,
+describe('fail-service', async () => {
+  vi.spyOn(axios, 'get').mockImplementation(() => Promise.reject(Error('Cant connect')))
+
+  const loggerErrorSpy = spyLogger('warn')
+
+  await setup({
     server: true,
-    fixture: 'fixture/options-without-instance-id'
+    rootDir: fileURLToPath(new URL('./fixture/options-without-instance-id', import.meta.url))
   })
 
-  test('should warn if not option instanceId', () => {
-    expect(logger.warn).toHaveBeenCalledWith(expect.stringMatching('instanceId option is not set'))
+  test('should warn if fail unleash service', () => {
+    expect(loggerErrorSpy).toBeCalledWith('instanceId option is not set')
   })
 })

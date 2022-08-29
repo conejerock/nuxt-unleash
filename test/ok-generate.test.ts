@@ -8,8 +8,12 @@ describe('ok-generate', async () => {
   vi.spyOn(axios, 'get').mockImplementation(() => Promise.resolve(singleIPFeature))
 
   await setup({
-    server: false,
-    rootDir: fileURLToPath(new URL('./fixture/ok-generate', import.meta.url))
+    nuxtConfig: {
+      ssr: false,
+      target: 'static'
+    },
+    rootDir: fileURLToPath(new URL('./fixture/ok-generate', import.meta.url)),
+    build: true
   })
 
   test('should pass module with template instance', async () => {

@@ -135,6 +135,7 @@ const extractIp = (nuxtApp: NuxtApp, moduleOptions: ModuleOptionsConfig): string
 export default defineNuxtPlugin((nuxtApp: NuxtApp) => {
   const features: UnleashFlagsData[] = JSON.parse('<%= options.data %>')
   const config: ModuleOptionsConfig = JSON.parse('<%= options.config %>')
+
   const unleashFlags = UnleashFlags.create({
     features,
     config,
