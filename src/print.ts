@@ -3,7 +3,7 @@ import { Consola } from 'consola'
 import { UnleashFlagsData, UnleashFlagStrategy } from './runtime/plugin'
 
 const printTitle = (consola: Consola) => {
-  consola.log(white(bold('Feature Flags')))
+  consola.log(white(bold('Feature Flags Module')))
 }
 
 const printFeatureFlag = (

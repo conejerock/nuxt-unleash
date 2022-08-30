@@ -1,4 +1,5 @@
 import { resolve } from 'path'
+import { dim } from 'colorette'
 import axios from 'axios'
 import { defineNuxtModule, createResolver, addPluginTemplate, logger } from '@nuxt/kit'
 import { Nuxt } from '@nuxt/schema'
@@ -63,6 +64,10 @@ export default defineNuxtModule<ModuleOptions>({
 
     if (!options.instanceId) {
       logger.warn('instanceId option is not set')
+    }
+
+    if (!nuxt.options.ssr) {
+      logger.warn(`With ${dim('ssr:false')}, isAllowIP is disabled`)
     }
     const { url, environment, instanceId, config } = options
     const featureFlags = await fetchData(url, instanceId, environment)

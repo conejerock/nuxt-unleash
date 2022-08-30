@@ -62,15 +62,16 @@ export class UnleashFlags {
       return false
     }
 
+    if (this.context.ip === undefined) {
+      console.log('With \'ssr:false\', isAllowIP is disabled')
+      return false
+    }
+
     for (const strategy of strategies) {
       const ips = strategy.parameters.userIds
         .split(',')
         .map((s: string) => s.trim())
-      if (
-        this.context.ip !== undefined &&
-        this.context.ip.length > 0 &&
-        ips.includes(this.context.ip)
-      ) {
+      if (this.context.ip.length > 0 && ips.includes(this.context.ip)) {
         return true
       }
     }
@@ -126,23 +127,29 @@ export class UnleashFlags {
   }
 }
 
-const extractIp = (nuxtApp: NuxtApp, moduleOptions: ModuleOptionsConfig): string => {
-  return '56.56.56.56'
-  // if (!moduleOptions.headerIP) {
-  //   return nuxtApp.ssrContext.event.req.socket.remoteAddress
-  // }
-  // return nuxtApp.ssrContext.event.req.headers[moduleOptions.headerIP] as string
+const extractIp = (nuxtApp: NuxtApp, moduleOptions: ModuleOptionsConfig): string | undefined => {
+  if (nuxtApp.ssrContext?.event.req == null) {
+    return undefined
+  }
+  if (!moduleOptions.headerIP) {
+    return nuxtApp.ssrContext.event.req.socket.remoteAddress
+  }
+  return nuxtApp.ssrContext.event.req.headers[moduleOptions.headerIP] as string
 }
 
 export default defineNuxtPlugin((nuxtApp: NuxtApp) => {
   const features: UnleashFlagsData[] = JSON.parse('<%= options.data %>')
   const config: ModuleOptionsConfig = JSON.parse('<%= options.config %>')
 
+  if (process.server) {
+    nuxtApp.vueApp.$nuxt.payload.state['unleash-ip'] = extractIp(nuxtApp, config)
+  }
+
   const unleashFlags = UnleashFlags.create({
     features,
     config,
     context: {
-      ip: extractIp(nuxtApp, config)
+      ip: nuxtApp.vueApp.$nuxt.payload.state['unleash-ip']
     }
   })
   return {
