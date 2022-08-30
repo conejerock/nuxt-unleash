@@ -1,5 +1,6 @@
-import { defineNuxtPlugin } from "#app";
-import { NuxtApp } from "nuxt/app";
+import { NuxtApp } from 'nuxt/app'
+// @ts-ignore
+import { defineNuxtPlugin } from '#app'
 
 export interface ModuleOptionsConfig {
   enabledDefault?: boolean;
@@ -24,104 +25,104 @@ export interface UnleashFlagsData {
 
 export class UnleashFlags {
   // eslint-disable-next-line no-useless-constructor
-  private constructor(
+  private constructor (
     private features: UnleashFlagsData[],
     private config: ModuleOptionsConfig,
     private context: NuxtFeatureOptionsContext
   ) {}
 
-  public static create({
+  public static create ({
     features,
     config,
-    context,
+    context
   }: {
     features: UnleashFlagsData[];
     config?: ModuleOptionsConfig;
     context?: NuxtFeatureOptionsContext;
   }): UnleashFlags {
-    return new UnleashFlags(features, config, context);
+    return new UnleashFlags(features, config, context)
   }
 
-  isEnabled(name: string): boolean {
+  isEnabled (name: string): boolean {
     if (!this.exists(name)) {
-      return this.config.enabledDefault;
+      return this.config.enabledDefault
     }
     return this.features.some(
       (f: UnleashFlagsData) => f.name === name && f.enabled
-    );
+    )
   }
 
-  exists(name: string) {
-    return this.features.some((f: UnleashFlagsData) => f.name === name);
+  exists (name: string) {
+    return this.features.some((f: UnleashFlagsData) => f.name === name)
   }
 
-  isAllowIP(name: string): boolean {
-    const { feature, strategies } = this.getFeature(name);
+  isAllowIP (name: string): boolean {
+    const { feature, strategies } = this.getFeature(name)
     if (!feature || !feature?.enabled || !strategies) {
-      return false;
+      return false
     }
 
     for (const strategy of strategies) {
       const ips = strategy.parameters.userIds
-        .split(",")
-        .map((s: string) => s.trim());
+        .split(',')
+        .map((s: string) => s.trim())
       if (
         this.context.ip !== undefined &&
         this.context.ip.length > 0 &&
         ips.includes(this.context.ip)
       ) {
-        return true;
+        return true
       }
     }
-    return false;
+    return false
   }
 
-  isAllowUser(name: string, user: string) {
-    const { feature, strategies } = this.getFeature(name);
+  isAllowUser (name: string, user: string) {
+    const { feature, strategies } = this.getFeature(name)
     if (!feature || !feature?.enabled || !strategies) {
-      return false;
+      return false
     }
 
     for (const strategy of strategies) {
       const users = strategy.parameters.userIds
-        .split(",")
-        .map((s: string) => s.trim());
+        .split(',')
+        .map((s: string) => s.trim())
       if (user.length > 0 && users.includes(user)) {
-        return true;
+        return true
       }
     }
-    return false;
+    return false
   }
 
-  private getFeature(
+  private getFeature (
     name: string,
-    strategyName: string = "userWithId"
+    strategyName: string = 'userWithId'
   ): {
     feature?: UnleashFlagsData;
     strategies?: UnleashFlagStrategy[];
   } {
     const feature = this.features.find(
       (f: UnleashFlagsData) => f.name === name
-    );
+    )
     if (!feature) {
       return {
         feature: undefined,
-        strategies: undefined,
-      };
+        strategies: undefined
+      }
     }
     const strategies = feature.strategies.filter(
       (f: UnleashFlagStrategy) => f.name === strategyName
-    );
+    )
     if (!strategies) {
       return {
         feature,
-        strategies: undefined,
-      };
+        strategies: undefined
+      }
     }
     return {
       feature,
-      strategies,
-    };
+      strategies
+    }
   }
 }
 

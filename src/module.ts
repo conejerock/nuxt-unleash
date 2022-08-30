@@ -2,7 +2,7 @@ import { resolve } from 'path'
 import axios from 'axios'
 import consola, { Consola } from 'consola'
 import { defineNuxtModule, createResolver, addPluginTemplate } from '@nuxt/kit'
-import { NuxtApp } from "nuxt/app";
+import { Nuxt } from '@nuxt/schema'
 
 export interface ModuleOptionsConfig {
   enabledDefault?: boolean;
@@ -41,6 +41,7 @@ const fetchData = async (
   }
 }
 
+// @ts-ignore
 export default defineNuxtModule<ModuleOptions>({
   meta: {
     name: 'nuxt-unleash',
@@ -56,7 +57,8 @@ export default defineNuxtModule<ModuleOptions>({
     instanceId: '',
     config: {}
   },
-  setup: async (options: any, nuxt: NuxtApp): Promise<void> => {
+  // @ts-ignore
+  async setup (options: ModuleOptions, nuxt: Nuxt): Promise<void> {
     if (!options.url) {
       logger.warn('url option is not set')
     }
