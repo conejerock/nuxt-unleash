@@ -1,3 +1,4 @@
+import { URL } from 'url'
 import { describe, expect, vi, test } from 'vitest'
 import { fileURLToPath } from 'node:url'
 import { setup, $fetch, createTestContext } from '@nuxt/test-utils'

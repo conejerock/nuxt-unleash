@@ -1,4 +1,5 @@
-import { describe, expect, vi, test } from 'vitest'
+import { URL } from 'url'
+import { describe, expect, vi, it } from 'vitest'
 import { fileURLToPath } from 'node:url'
 import { setup, $fetch } from '@nuxt/test-utils'
 import axios from 'axios'
@@ -10,14 +11,17 @@ describe('ok-generate', async () => {
   await setup({
     nuxtConfig: {
       ssr: false,
-      target: 'static'
+      target: 'static',
+      generate: {
+        dir: 'dist'
+      }
     },
     rootDir: fileURLToPath(new URL('./fixture/ok-generate', import.meta.url)),
-    build: true
+    server: false
   })
 
-  test('should pass module with template instance', async () => {
-    const html = await $fetch('/App')
-    expect(html).contain('New Feature Doesnt Exist')
+  it('should pass module with template instance', async () => {
+    const html = $fetch('/App')
+    await expect(html).contain('New Feature Doesnt Exist')
   })
 })

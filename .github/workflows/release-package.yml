@@ -14,31 +14,7 @@ jobs:
           node-version: 12
       - run: npm install
       - run: npm test
-
-  publish-gpr:
-    needs: build
-    runs-on: ubuntu-latest
-    permissions:
-      packages: write
-      contents: read
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
-        with:
-          node-version: 12
-          registry-url: https://npm.pkg.github.com/
-          scope: '@conejerock'
-
-
-      - name: Install dependencies for GitHub Package Registry
-        run: npm install
-
-      - name: Publishing in GitHub Package Registry
-        run: npm publish
-        env:
-          NODE_AUTH_TOKEN: ${{secrets.GH_TOKEN}}
-
-
+        
   publish-npm:
     needs: build
     runs-on: ubuntu-latest
