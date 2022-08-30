@@ -1,8 +1,8 @@
 import { resolve } from 'path'
 import axios from 'axios'
-import consola, { Consola } from 'consola'
-import { defineNuxtModule, createResolver, addPluginTemplate } from '@nuxt/kit'
+import { defineNuxtModule, createResolver, addPluginTemplate, logger } from '@nuxt/kit'
 import { Nuxt } from '@nuxt/schema'
+import print from './print'
 
 export interface ModuleOptionsConfig {
   enabledDefault?: boolean;
@@ -16,15 +16,13 @@ export interface ModuleOptions {
   config: ModuleOptionsConfig;
 }
 
-const logger: Consola = consola.withTag('nuxt:unleash')
-
 const fetchData = async (
   url: string,
   instanceId: string,
   environment?: string
 ) => {
   if (!url || !instanceId) {
-    return undefined
+    return []
   }
 
   try {
@@ -34,10 +32,10 @@ const fetchData = async (
         ...(environment && { 'UNLEASH-APPNAME': environment })
       }
     })
-    return data.features
+    return data.features || []
   } catch (e) {
     logger.error(`Cannot fetch data from url ${url}`)
-    return undefined
+    return []
   }
 }
 
@@ -81,5 +79,6 @@ export default defineNuxtModule<ModuleOptions>({
       },
       src: srcPlugin
     })
+    print(featureFlags, logger)
   }
 })

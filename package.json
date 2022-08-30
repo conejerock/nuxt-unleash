@@ -45,6 +45,7 @@
   "dependencies": {
     "@nuxt/kit": "^3.0.0-rc.8",
     "axios": "^0.27.2",
+    "colorette": "^2.0.19",
     "consola": "^2.15.3"
   },
   "devDependencies": {

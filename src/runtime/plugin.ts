@@ -127,10 +127,11 @@ export class UnleashFlags {
 }
 
 const extractIp = (nuxtApp: NuxtApp, moduleOptions: ModuleOptionsConfig): string => {
-  if (!moduleOptions.headerIP) {
-    return nuxtApp.ssrContext.event.req.socket.remoteAddress
-  }
-  return nuxtApp.ssrContext.event.req.headers[moduleOptions.headerIP] as string
+  return '56.56.56.56'
+  // if (!moduleOptions.headerIP) {
+  //   return nuxtApp.ssrContext.event.req.socket.remoteAddress
+  // }
+  // return nuxtApp.ssrContext.event.req.headers[moduleOptions.headerIP] as string
 }
 
 export default defineNuxtPlugin((nuxtApp: NuxtApp) => {
