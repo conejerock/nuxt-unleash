@@ -1,5 +1,5 @@
 <p align="center">
-    <img src="https://raw.githubusercontent.com/conejerock/nuxt-unleash/main/docs/icon.svg" width="300">
+    <img src="[https://raw.githubusercontent.com/conejerock/nuxt-unleash/main/docs/icon.svg](https://github.com/conejerock/nuxt-unleash/blob/main/docs/nuxt-unleash.svg)" width="300">
 </p>
 
 # nuxt-unleash
