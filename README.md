@@ -77,7 +77,7 @@ Unleash API Instance ID
 - Type: `String`
 - Required: `false`
 
-Name of the environment your Unleash application runs in. See the [example configuration](https://docs.gitlab.com/ee/operations/feature_flags.html#golang-application-example).
+Name of the environment your Unleash application runs in. If is not filled in, the response will be an empty array. See the [example configuration](https://docs.gitlab.com/ee/operations/feature_flags.html#golang-application-example).
 
 ### `config`
 
